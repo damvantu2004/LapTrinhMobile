@@ -8,8 +8,6 @@ Danh sách thành viên
 
 Họ và tên	
 
-Mã sinh viên
-
 Đàm Văn Tú	
 
 Vũ Quang Tuyền		
@@ -22,6 +20,7 @@ Nguyễn Quang Anh
 YUP là ứng dụng bán nội thất của công ty TNHH 1 thành viên, YUP cung cấp cho người dùng trải nghiệm về sản phẩm với những mô tả chi tiết và mua sắm online thuận tiện nhất.
 
 🎛️ Tính năng
+
 🫧 Ứng dụng tham khảo
 
 Mua sắm nội thất
