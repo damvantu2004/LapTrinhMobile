@@ -1,12 +1,12 @@
 # LapTrinhMobile
-#Nhóm 15
-#Đề tài: Xây dựng ứng dụng bán đồ nội thất
+Nhóm 15
+Đề tài: Xây dựng ứng dụng bán đồ nội thất
 
-#Lớp học phần: 241IS26A01
+Lớp học phần: 241IS26A01
 
-#Danh sách thành viên
-#Họ và tên	
-#Mã sinh viên	
+Danh sách thành viên
+Họ và tên	
+Mã sinh viên
 Đàm Văn Tú	
 Vũ Quang Tuyền		
 Phan Anh Tuấn	
