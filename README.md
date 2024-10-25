@@ -23,7 +23,7 @@ YUP là ứng dụng bán nội thất của công ty TNHH 1 thành viên, YUP c
 
 🫧 Ứng dụng tham khảo
 
-Mua sắm nội thất
+[Mua sắm nội thất] (https://play.google.com/store/apps/details?id=com.boulla.home_shopping&hl=vi)
 
 
 📟 Tiện ích sử dụng
