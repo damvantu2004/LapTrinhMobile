@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "250420963396",
+    "project_id": "tudv2004",
+    "storage_bucket": "tudv2004.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250420963396:android:a26c3e50dde908afa97411",
+        "android_client_info": {
+          "package_name": "com.example.furnitureapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI76C8TzTe3DqnEs3TP-ogpnqzG1RI4Mg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
