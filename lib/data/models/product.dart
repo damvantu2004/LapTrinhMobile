@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+// Lớp Product đại diện cho thông tin sản phẩm, với các thuộc tính như tên,
+// giá, kích thước, màu sắc, danh mục, mô tả, v.v.
 class Product {
   String? id;
   String? name;
