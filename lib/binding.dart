@@ -21,7 +21,5 @@ class MyBinding extends Bindings {
     Get.lazyPut<SplashController>(() => SplashController(), fenix: true);
     Get.lazyPut<ChatBotController>(() => ChatBotController(), fenix: true);
 
-
-
   }
 }
