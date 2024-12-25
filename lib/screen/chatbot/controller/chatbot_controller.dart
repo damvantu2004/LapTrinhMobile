@@ -1,11 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
-import 'package:furniture_app/data/models/Order.dart';
-import 'package:furniture_app/data/models/cart.dart';
-import 'package:furniture_app/data/models/chatbot.dart';
-import 'package:furniture_app/data/models/product.dart';
-import 'package:furniture_app/data/repository/chatbot_repository.dart';
+
 
 import 'package:get/get.dart';
 
@@ -13,67 +9,89 @@ import '../view/chatmessage.dart';
 
 class ChatBotController extends GetxController {
   final TextEditingController textInput = TextEditingController();
-  late MyOrder order;
   List<History> history = [];
   bool loadMess = false;
+
+  // Map lưu các câu trả lời mẫu
+  final Map<String, Map<String, dynamic>> chatData = {
+    'begin': {
+      'content': ['Chào bạn, tôi có thể giúp gì cho bạn?'],
+      'button': {
+        'Giá sản phẩm': 'step1',
+        'Chính sách bảo hành': 'step2',
+      },
+    },
+    'step1': {
+      'content': ['Giá sản phẩm được hiển thị trong danh mục.'],
+      'button': {
+        'Trở về': 'begin',
+      },
+    },
+    'step2': {
+      'content': ['Chính sách bảo hành là 12 tháng.'],
+      'button': {
+        'Trở về': 'begin',
+      },
+    },
+  };
 
   @override
   void onInit() {
     super.onInit();
-    loadDataTemplate();
+    loadDataTemplate('begin');
   }
 
-  Future<void> loadDataTemplate() async {
-    ChatBotMessage chatBotMessage =
-        await ChatBotRepository().getChatBotMessage('begin');
-    ChatMessage mess = ChatMessage(
-        messageContent: chatBotMessage.content,
-        messageButton: chatBotMessage.contenButton,
-        messageType: 'admin');
-    history.insert(0, History(chatMessage: mess));
-    update();
-  }
-
-  Future<void> loadDataButtonTemplate() async {
-    ChatBotMessage chatBotMessage =
-        await ChatBotRepository().getChatBotMessage('begin');
-    ChatMessage mess = ChatMessage(
-        messageContent: [],
-        messageButton: chatBotMessage.contenButton,
-        messageType: 'admin');
-    history.insert(0, History(chatMessage: mess));
-    update();
-  }
-
-  Future<void> chooseButton(String content, String id) async {
-    ChatMessage mess =
-        ChatMessage(messageContent: [content], messageType: 'user');
-    history.insert(0, History(chatMessage: mess));
-    update();
-
-    if (id != "") {
-      ChatBotMessage chatBotMessage =
-          await ChatBotRepository().getChatBotMessage(id);
-      ChatMessage mess = ChatMessage(
-          messageContent: chatBotMessage.content,
-          messageButton: chatBotMessage.contenButton,
-          messageType: 'admin');
-      history.insert(0, History(chatMessage: mess));
+  // Tải dữ liệu mẫu từ Map
+  void loadDataTemplate(String id) {
+    final data = chatData[id];
+    if (data != null) {
+      final ChatMessage message = ChatMessage(
+        messageContent: List<String>.from(data['content']),
+        messageButton: Map<String, String>.from(data['button']),
+        messageType: 'admin',
+      );
+      history.insert(0, History(chatMessage: message));
       update();
-    } else {
-      // Call Gemini AI API
-      String apiKey = 'AIzaSyBqtlQWAQ271WPyWCijeeJVJ7wdz-CiKE4';
-      String apiUrl =
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey';
+    }
+  }
 
-      var response = await http.post(
+  // Xử lý khi người dùng nhấn vào nút
+  Future<void> chooseButton(String content, String id) async {
+    // Thêm câu hỏi của người dùng vào lịch sử
+    final userMessage = ChatMessage(
+      messageContent: [content],
+      messageType: 'user',
+    );
+    history.insert(0, History(chatMessage: userMessage));
+    update();
+
+    // Nếu ID tồn tại trong Map, hiển thị nội dung từ Map
+    if (id.isNotEmpty && chatData.containsKey(id)) {
+      loadDataTemplate(id);
+    } else {
+      // Nếu không, gọi API Gemini
+      await fetchResponseFromGemini(content);
+    }
+  }
+
+  // Gọi API Gemini nếu không có câu trả lời mẫu
+  Future<void> fetchResponseFromGemini(String userInput) async {
+    loadMess = true; // Bật trạng thái loading
+    update();
+
+    String apiKey = 'AIzaSyBqtlQWAQ271WPyWCijeeJVJ7wdz-CiKE4';
+    String apiUrl =
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey';
+
+    try {
+      final response = await http.post(
         Uri.parse(apiUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'contents': [
             {
               'parts': [
-                {'text': content}
+                {'text': userInput}
               ]
             }
           ],
@@ -91,22 +109,31 @@ class ChatBotController extends GetxController {
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         String aiResponse =
-            jsonResponse['candidates'][0]['content']['parts'][0]['text'];
+        jsonResponse['candidates'][0]['content']['parts'][0]['text'];
 
-        history.insert(0, History(widget: Text(aiResponse)));
-        update();
+        final aiMessage = ChatMessage(
+          messageContent: [aiResponse],
+          messageType: 'admin',
+        );
+        history.insert(0, History(chatMessage: aiMessage));
       } else {
         history.insert(
-            0, History(widget: Text('Failed to get response from AI')));
-        update();
+          0,
+          History(widget: const Text('Failed to get response from AI')),
+        );
       }
+    } catch (e) {
+      history.insert(
+        0,
+        History(widget: const Text('An error occurred while calling AI.')),
+      );
     }
+
+    loadMess = false; // Tắt trạng thái loading
+    update();
   }
 
-  List<MyOrder> orders = [];
-  List<Cart> carts = [];
-  List<Product> products = [];
-  List<String> status = [];
+
 }
 
 class History {
