@@ -14,25 +14,29 @@ import 'package:get/get.dart';
 import '../../add_cart_option/controller/add_cart_option_controller.dart';
 
 class FavoritePage extends GetView<FavoriteController> {
+  // Constructor
   FavoritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Sử dụng GetBuilder để cập nhật giao diện khi FavoriteController thay đổi
     return GetBuilder<FavoriteController>(
         builder: (value) => Scaffold(
-          backgroundColor: backgroundColor,
-          appBar: appBarCustom(),
-          body: _buildBody(context),
+          backgroundColor: backgroundColor, // Màu nền
+          appBar: appBarCustom(), // Thanh AppBar tùy chỉnh
+          body: _buildBody(context), // Nội dung chính
         ));
   }
 
+  // Xây dựng phần thân của giao diện
   Widget _buildBody(context) {
     return Container(
-      height: Get.height,
-      width: Get.width,
+      height: Get.height, // Chiều cao toàn màn hình
+      width: Get.width, // Chiều rộng toàn màn hình
       margin: const EdgeInsets.only(bottom: 76, left: 16, right: 16),
       child: SingleChildScrollView(
         child: Column(
+          // Tạo danh sách các mục yêu thích
           children: List.generate(
             controller.products.length,
                 (index) => buildItem(context, index, controller.products[index]),
@@ -42,6 +46,7 @@ class FavoritePage extends GetView<FavoriteController> {
     );
   }
 
+  // Xây dựng giao diện cho một mục yêu thích
   Column buildItem(context, int index, Product product) {
     return Column(
       children: [
@@ -52,6 +57,7 @@ class FavoritePage extends GetView<FavoriteController> {
           child: Row(
             children: [
               InkWell(
+                // Mở trang chi tiết sản phẩm khi nhấn vào
                 onTap: () {
                   Get.to(ProductDetailPage(),
                       arguments: {'product': product, 'favorite': true});
@@ -64,16 +70,17 @@ class FavoritePage extends GetView<FavoriteController> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         image: DecorationImage(
+                          // Kiểm tra và hiển thị hình ảnh sản phẩm
                           image: NetworkImage(
                             product?.imagePath != null && product!.imagePath!.isNotEmpty && product.imagePath![0].isNotEmpty
                                 ? product.imagePath![0]
-                                : "https://scontent.fhan19-1.fna.fbcdn.net/v/t45.5328-4/441968936_786522690294388_192808687243888620_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=247b10&_nc_eui2=AeG4tWZLQYT_l6fYUDYed2DcnHrI7dWEC5Scesjt1YQLlDf8cXURswacYh4ECIGHBh9Jk78gNpWdR2qK4Q3NqgVg&_nc_ohc=bhjvb1j567MQ7kNvgHd-xD8&_nc_ht=scontent.fhan19-1.fna&oh=00_AYDVNkNCRKL8YXArbJ_AOZq4_auow0L8fw8kIyroXIQ6XQ&oe=66D3E223", // URL for a random image
+                                : "https://scontent.fhan19-1.fna.fbcdn.net/v/t45.5328-4/441968936_786522690294388_192808687243888620_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=247b10&_nc_eui2=AeG4tWZLQYT_l6fYUDYed2DcnHrI7dWEC5Scesjt1YQLlDf8cXURswacYh4ECIGHBh9Jk78gNpWdR2qK4Q3NqgVg&_nc_ohc=bhjvb1j567MQ7kNvgHd-xD8&_nc_ht=scontent.fhan19-1.fna&oh=00_AYDVNkNCRKL8YXArbJ_AOZq4_auow0L8fw8kIyroXIQ6XQ&oe=66D3E223", // URL hình mặc định
                           ),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-
+                    // Thông tin sản phẩm: tên và giá
                     Container(
                       height: 100,
                       width: Get.width - 16 * 2 - 150 - 30,
@@ -83,7 +90,7 @@ class FavoritePage extends GetView<FavoriteController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            product.name.toString(),
+                            product.name.toString(), // Tên sản phẩm
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -95,7 +102,7 @@ class FavoritePage extends GetView<FavoriteController> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            '\$ ${product.price}',
+                            '\$ ${product.price}', // Giá sản phẩm
                             style: const TextStyle(
                               fontSize: 16,
                               color: textGrey3Color,
@@ -108,6 +115,7 @@ class FavoritePage extends GetView<FavoriteController> {
                   ],
                 ),
               ),
+              // Các nút chức năng: xóa hoặc thêm vào giỏ hàng
               Container(
                 height: 100,
                 width: 30,
@@ -116,14 +124,15 @@ class FavoritePage extends GetView<FavoriteController> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // Xóa sản phẩm khỏi danh sách yêu thích
                     InkWell(
                         onTap: () {
                           controller.deleteItemWithIndex(index);
                         },
                         child: SvgPicture.asset(icon_delete)),
+                    // Thêm sản phẩm vào giỏ hàng
                     InkWell(
                       onTap: () {
-                        // controller.addItemWithIndex(index);
                         addToCart(context, index);
                       },
                       child: Container(
@@ -145,6 +154,7 @@ class FavoritePage extends GetView<FavoriteController> {
             ],
           ),
         ),
+        // Đường viền dưới mỗi mục
         Container(
           height: 1,
           width: Get.width - 16 * 2,
@@ -154,9 +164,9 @@ class FavoritePage extends GetView<FavoriteController> {
     );
   }
 
+  // Hiển thị modal thêm sản phẩm vào giỏ hàng
   Future addToCart(BuildContext context, int index) {
     final product = controller.products[index];
-    // Safely check if imagePath is not empty before accessing the first element
     final imagePath = (product.imagePath != null && product.imagePath!.isNotEmpty)
         ? product.imagePath![0]
         : "";
@@ -174,7 +184,7 @@ class FavoritePage extends GetView<FavoriteController> {
       builder: (context) => AddCartOption(
         idProduct: product.id.toString(),
         imagePath: imagePath,
-        price: product.price ?? 0, // Ensure price is not null
+        price: product.price ?? 0,
         colors: product.imageColorTheme ?? [],
         sizes: [
           '${product.width}cm x ${product.height}cm x ${product.length}cm'
@@ -186,6 +196,7 @@ class FavoritePage extends GetView<FavoriteController> {
     );
   }
 
+  // AppBar tùy chỉnh
   AppBar appBarCustom() {
     return AppBar(
         elevation: 0,
@@ -195,6 +206,7 @@ class FavoritePage extends GetView<FavoriteController> {
             width: 10,
             child: SvgPicture.asset(icon_search, fit: BoxFit.scaleDown)),
         actions: [
+          // Hiển thị biểu tượng giỏ hàng và số lượng sản phẩm trong giỏ
           Stack(
             children: [
               SizedBox(
@@ -225,7 +237,7 @@ class FavoritePage extends GetView<FavoriteController> {
         ],
         title: Align(
           child: Text(
-            favories,
+            favories, // Tiêu đề
             style: TextStyle(
                 fontFamily: gelasio,
                 fontWeight: FontWeight.w700,
