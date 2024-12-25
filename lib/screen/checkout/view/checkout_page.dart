@@ -63,10 +63,9 @@ class CheckoutPage extends GetView<CheckoutController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildListProduct(), // Danh sách sản phẩm.
-          titleEdit(isAddress: true), // Tiêu đề địa chỉ giao hàng.
-          titleEdit(isPayment: true), // Tiêu đề phương thức thanh toán.
-          contentEditPayment(), // Nội dung thanh toán.
-          buildCheckout(), // Tổng quan về đơn hàng.
+
+
+
           SizedBox(height: Get.height * 0.04), // Khoảng cách giữa các thành phần.
           _buttonConfirm(), // Nút xác nhận thanh toán.
         ],
