@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-// import 'package:furniture_app/data/models/product.dart';
+import 'package:furniture_app/data/models/product.dart';
 import 'package:furniture_app/data/repository/cart_repository.dart';
-// import 'package:furniture_app/data/repository/user_repository.dart';
+import 'package:furniture_app/data/repository/user_repository.dart';
 
 import 'package:furniture_app/screen/add_cart_option/view/add_cart_option_page.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 import '../../../data/models/cart.dart';
 
