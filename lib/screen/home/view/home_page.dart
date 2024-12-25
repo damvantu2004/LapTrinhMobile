@@ -10,7 +10,6 @@ import 'package:furniture_app/data/values/strings.dart';
 import 'package:furniture_app/screen/cart/view/cart_page.dart';
 import 'package:furniture_app/screen/chatbot/view/chatbot_page.dart';
 import 'package:furniture_app/screen/home/controller.dart/home_controller.dart';
-import 'package:furniture_app/screen/search_product/view/search_page.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -246,7 +245,7 @@ class HomePage extends GetView<HomeController> {
         child: IconButton(
           icon: SvgPicture.asset(icon_search, fit: BoxFit.scaleDown),
           onPressed: () {
-            Get.to(const SearchPage());
+            // Get.to(const SearchPage());
           },
         ),
       ),

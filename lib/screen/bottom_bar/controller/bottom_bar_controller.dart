@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furniture_app/data/paths/icon_path.dart';
-import 'package:furniture_app/screen/favorite/view/favorite_page.dart';
+import 'package:furniture_app/screen/favorite/view/favorite_view.dart';
 import 'package:furniture_app/screen/home/view/home_page.dart';
-import 'package:furniture_app/screen/profile/view/profile_page.dart';
+import 'package:furniture_app/screen/profile/view/profile_view.dart';
 import 'package:get/get.dart';
 
 class BottomBarController extends GetxController {

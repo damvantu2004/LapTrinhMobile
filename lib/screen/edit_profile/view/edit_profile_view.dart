@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:furniture_app/screen/profile/view/profile_page.dart';
+import 'package:furniture_app/screen/profile/view/profile_view.dart';
 import 'package:get/get.dart';
 import '../../../data/paths/icon_path.dart';
 import '../../../data/values/fonts.dart';
