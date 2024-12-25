@@ -3,12 +3,11 @@ import 'package:furniture_app/data/values/colors.dart';
 import 'package:furniture_app/data/values/fonts.dart';
 import 'package:furniture_app/data/values/strings.dart';
 import 'package:furniture_app/data/paths/icon_path.dart';
-import 'package:furniture_app/screen/edit_profile/view/edit_profile_page.dart';
+import 'package:furniture_app/screen/edit_profile/view/edit_profile_view.dart';
 import 'package:furniture_app/screen/setting/controller/setting_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../password/change_password/change_password_page.dart';
 
 class SettingPage extends GetView<SettingController> {
   const SettingPage({super.key});
@@ -48,7 +47,7 @@ class SettingPage extends GetView<SettingController> {
               height: 10,
             ),
             titleEdit(password, icon_edit, () {
-              Get.to(() => ChangePassword());
+              // Get.to(() => ChangePassword());
             }),
             infoSetting(password, '******'),
             const SizedBox(
