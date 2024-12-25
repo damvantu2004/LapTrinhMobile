@@ -17,7 +17,7 @@ Phan Anh Tuấn
 Nguyễn Quang Anh	
 
 
-YUP là ứng dụng bán nội thất của công ty TNHH 1 thành viên, YUP cung cấp cho người dùng trải nghiệm về sản phẩm với những mô tả chi tiết và mua sắm online thuận tiện nhất.
+Furniture là ứng dụng bán nội thất của công ty TNHH 1 thành viên, Furniture cung cấp cho người dùng trải nghiệm về sản phẩm với những mô tả chi tiết và mua sắm online thuận tiện nhất.
 
 🎛️ Tính năng
 
