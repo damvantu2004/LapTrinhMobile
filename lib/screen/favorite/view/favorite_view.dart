@@ -9,6 +9,7 @@ import 'package:furniture_app/data/values/fonts.dart';
 import 'package:furniture_app/data/values/strings.dart';
 import 'package:furniture_app/screen/favorite/controller/favorite_controller.dart';
 import 'package:furniture_app/screen/product_detail/view/product_detail_page.dart';
+import 'package:furniture_app/screen/cart/view/cart_page.dart';
 import 'package:get/get.dart';
 
 import '../../add_cart_option/controller/add_cart_option_controller.dart';
@@ -206,33 +207,37 @@ class FavoritePage extends GetView<FavoriteController> {
             width: 10,
             child: SvgPicture.asset(icon_search, fit: BoxFit.scaleDown)),
         actions: [
-          // Hiển thị biểu tượng giỏ hàng và số lượng sản phẩm trong giỏ
-          Stack(
-            children: [
-              SizedBox(
-                height: Get.height * 0.065,
-                width: Get.height * 0.065,
-                child: SvgPicture.asset(icon_cart, fit: BoxFit.scaleDown),
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                    top: Get.height * 0.01, left: Get.height * 0.0349),
-                width: Get.height * 0.025,
-                height: Get.height * 0.025,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.red,
-                    border: Border.all(color: Colors.white, width: 1)),
-                child: Text(
-                  controller.carts.length.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: Get.height * 0.0148,
-                      fontWeight: FontWeight.bold),
+          InkWell(
+            onTap: () {
+              Get.to(CartPage());
+            },
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: Get.height * 0.065,
+                  width: Get.height * 0.065,
+                  child: SvgPicture.asset(icon_cart, fit: BoxFit.scaleDown),
                 ),
-              ),
-            ],
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(
+                      top: Get.height * 0.01, left: Get.height * 0.0349),
+                  width: Get.height * 0.025,
+                  height: Get.height * 0.025,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                      border: Border.all(color: Colors.white, width: 1)),
+                  child: Text(
+                    controller.carts.length.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: Get.height * 0.0148,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
         title: Align(
