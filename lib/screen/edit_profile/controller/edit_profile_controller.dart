@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:furniture_app/data/repository/user_repository.dart';
 import 'package:furniture_app/data/values/strings.dart';
-import 'package:furniture_app/screen/profile/view/profile_page.dart';
+import 'package:furniture_app/screen/profile/view/profile_view.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
